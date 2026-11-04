@@ -40,7 +40,7 @@ def locate_files(root_arg: str | None, curve_arg: str | None, stage3_arg: str | 
         for suffix in suffixes:
             base = root / suffix
             curve = (Path(curve_arg).expanduser().resolve() if curve_arg else
-                     base / "model_ready_data.csv")
+                     base / "model_ready_data.csv.gz")
             candidates = ([Path(stage3_arg).expanduser().resolve()] if stage3_arg else
                           [base / "Stage3_Output" / "pgmlp_curve_dataset.csv",
                            base / "pgmlp_curve_dataset.csv"])
@@ -138,7 +138,7 @@ def sha256(path):
 def main():
     parser = argparse.ArgumentParser(description="Stage5: 88 curves, RF300/XGB300, A/B reconstruction")
     parser.add_argument("--project-root", default=None, help="建模数据所在目录，如 ~/Desktop/硫化曲线")
-    parser.add_argument("--curve-input", default=None, help="可选: model_ready_data.csv 的绝对路径")
+    parser.add_argument("--curve-input", default=None, help="可选: model_ready_data.csv.gz 的绝对路径")
     parser.add_argument("--stage3-input", default=None, help="可选: pgmlp_curve_dataset.csv 的绝对路径")
     parser.add_argument("--output-dir", default=None, help="可选: 指定输出目录")
     parser.add_argument("--no-plots", action="store_true", help="只计算CSV，不生成88张图")

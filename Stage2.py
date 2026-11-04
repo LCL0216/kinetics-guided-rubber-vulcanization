@@ -54,10 +54,10 @@ def locate_inputs(project_root: str | None, input_file: str | None,
         ]))
 
     raw_relatives = [
-        "model_ready_data.csv", "建模集_1-88/model_ready_data.csv",
-        "建模集/model_ready_data.csv", "Training_88/model_ready_data.csv",
-        "Modeling_88/model_ready_data.csv", "硫化曲线/model_ready_data.csv",
-        "硫化曲线/建模集_1-88/model_ready_data.csv",
+        "model_ready_data.csv.gz", "建模集_1-88/model_ready_data.csv.gz",
+        "建模集/model_ready_data.csv.gz", "Training_88/model_ready_data.csv.gz",
+        "Modeling_88/model_ready_data.csv.gz", "硫化曲线/model_ready_data.csv.gz",
+        "硫化曲线/建模集_1-88/model_ready_data.csv.gz",
     ]
     checked_raw = []
     if input_file:
@@ -70,7 +70,7 @@ def locate_inputs(project_root: str | None, input_file: str | None,
     raw = next((p for p in raw_candidates if p.is_file()), None)
     if raw is None:
         raise FileNotFoundError(
-            "没有找到88条建模曲线 model_ready_data.csv。\n"
+            "没有找到88条建模曲线 model_ready_data.csv.gz。\n"
             "建议：python Stage2.py --project-root \"/path/to/work\"\n"
             "或传入 --input 指定完整CSV路径。\n已检查：\n" +
             "\n".join(checked_raw[:16])
@@ -88,7 +88,7 @@ def locate_inputs(project_root: str | None, input_file: str | None,
     stage1 = next((p for p in stage1_candidates if p.is_file()), None)
     if stage1 is None:
         raise FileNotFoundError(
-            "已找到 model_ready_data.csv，但找不到 Stage1_Output/kinetic_parameters_stage1.csv。\n"
+            "已找到 model_ready_data.csv.gz，但找不到 Stage1_Output/kinetic_parameters_stage1.csv。\n"
             "请将 Stage 1 的输出文件夹放到建模数据旁边，或用 --stage1-input 指定文件。\n"
             "已检查：\n" + "\n".join(map(str, stage1_candidates[:16]))
         )
@@ -167,7 +167,7 @@ def main():
     parser = argparse.ArgumentParser(description="Stage 2: 新编号1–88固化动力学参数拟合")
     parser.add_argument("--project-root", default=None,
                         help="项目根目录（通常为桌面的「硫化曲线」文件夹）")
-    parser.add_argument("--input", default=None, help="88条曲线model_ready_data.csv的绝对路径")
+    parser.add_argument("--input", default=None, help="88条曲线model_ready_data.csv.gz的绝对路径")
     parser.add_argument("--stage1-input", default=None,
                         help="Stage1_Output/kinetic_parameters_stage1.csv的绝对路径")
     parser.add_argument("--output-dir", default=None, help="自定义Stage2输出文件夹")
@@ -193,7 +193,7 @@ def main():
     missing_s1 = [x for x in required_s1 if x not in stage1_df.columns]
     if missing_raw or missing_s1:
         raise ValueError(f"建模曲线缺失字段：{missing_raw}；Stage1参数缺失字段：{missing_s1}")
-    raw_df = check_no_column(raw_df, "建模集model_ready_data.csv")
+    raw_df = check_no_column(raw_df, "建模集model_ready_data.csv.gz")
     stage1_df = check_no_column(stage1_df, "Stage1参数表")
     if stage1_df["No"].duplicated().any():
         raise ValueError("Stage1参数表中No有重复编号。")

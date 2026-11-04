@@ -111,7 +111,7 @@ COLORS = {
 
 
 PARSER = argparse.ArgumentParser(description="Stage 8: Direct-MLP, Direct-XGB 与 PG-ML 公平对照（No.1–88）")
-PARSER.add_argument("--project-root", default=None, help="包含 model_ready_data.csv 和 Stage3_Output 的项目目录")
+PARSER.add_argument("--project-root", default=None, help="包含 model_ready_data.csv.gz 和 Stage3_Output 的项目目录")
 PARSER.add_argument("--output-dir", default=None, help="可选：自定义输出目录；默认项目目录/Stage8_Output")
 PARSER.add_argument("--fold-limit", type=int, default=N_SPLITS,
                     help="仅作程序快速测试：运行前几个折；正式科研评价必须使用默认的5折")
@@ -128,7 +128,7 @@ def locate_project():
         candidates = [script_dir, script_dir.parent, script_dir.parent.parent, Path.cwd()]
     tried = []
     for root in candidates:
-        curve_file = root / "model_ready_data.csv"
+        curve_file = root / "model_ready_data.csv.gz"
         for stage3_file in [root / "Stage3_Output" / "pgmlp_curve_dataset.csv",
                             root / "pgmlp_curve_dataset.csv"]:
             tried.append(f"{curve_file} + {stage3_file}")
@@ -1020,7 +1020,7 @@ if missing_curve:
 
     raise ValueError(
 
-        f"model_ready_data.csv缺少："
+        f"model_ready_data.csv.gz缺少："
         f"{missing_curve}"
 
     )

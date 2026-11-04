@@ -40,15 +40,15 @@ def locate_dataset(project_root: str | None, explicit_input: str | None):
     else:
         bases = [script_dir, script_dir / "硫化曲线", Path.cwd(), Path.cwd() / "硫化曲线"]
     relatives = [
-        "model_ready_data.csv",
-        "建模集_1-88/model_ready_data.csv",
-        "建模集_1-88/Stage1/model_ready_data.csv",
-        "建模集_1-88/Stage1_Output/model_ready_data.csv",
-        "Training_88/model_ready_data.csv",
-        "Modeling_88/model_ready_data.csv",
-        "建模集/model_ready_data.csv",
-        "硫化曲线/model_ready_data.csv",
-        "硫化曲线/建模集_1-88/model_ready_data.csv",
+        "model_ready_data.csv.gz",
+        "建模集_1-88/model_ready_data.csv.gz",
+        "建模集_1-88/Stage1/model_ready_data.csv.gz",
+        "建模集_1-88/Stage1_Output/model_ready_data.csv.gz",
+        "Training_88/model_ready_data.csv.gz",
+        "Modeling_88/model_ready_data.csv.gz",
+        "建模集/model_ready_data.csv.gz",
+        "硫化曲线/model_ready_data.csv.gz",
+        "硫化曲线/建模集_1-88/model_ready_data.csv.gz",
     ]
     checked = []
     for base in bases:
@@ -58,7 +58,7 @@ def locate_dataset(project_root: str | None, explicit_input: str | None):
             if p.is_file():
                 return p.resolve(), base.resolve()
     raise FileNotFoundError(
-        "未找到88条建模数据 model_ready_data.csv。\n"
+        "未找到88条建模数据 model_ready_data.csv.gz。\n"
         "请将脚本与文件放在『硫化曲线』同一个文件夹中，"
         "或使用 --project-root、--input 指定路径。\n"
         + "\n".join(checked[:12])
@@ -321,7 +321,7 @@ def main():
     parser.add_argument("--project-root", type=str, default=None,
                         help="硫化曲线项目文件夹的位置")
     parser.add_argument("--input", type=str, default=None,
-                        help="明确指定建模集 model_ready_data.csv 的路径")
+                        help="明确指定建模集 model_ready_data.csv.gz 的路径")
     parser.add_argument("--no-plots", action="store_true", help="只生成CSV，不画88张图")
     args = parser.parse_args()
 

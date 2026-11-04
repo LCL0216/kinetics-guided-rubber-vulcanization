@@ -27,7 +27,7 @@ def read_args():
     p.add_argument("--project-root", type=str, default=None,
                    help="项目根目录，如 /path/to/work")
     p.add_argument("--raw", type=str, default=None,
-                   help="指定 model_ready_data.csv 完整路径")
+                   help="指定 model_ready_data.csv.gz 完整路径")
     p.add_argument("--stage2", type=str, default=None,
                    help="指定 kinetic_parameters_stage2.csv 完整路径")
     return p.parse_args()
@@ -56,8 +56,8 @@ def find_paths(args):
     tests = []
     for root in roots:
         raw_options = [raw_explicit] if raw_explicit else [
-            root / "model_ready_data.csv",
-            root / "建模集_1-88" / "model_ready_data.csv",
+            root / "model_ready_data.csv.gz",
+            root / "建模集_1-88" / "model_ready_data.csv.gz",
         ]
         stage2_options = [stage2_explicit] if stage2_explicit else [
             root / "Stage2_Output" / "kinetic_parameters_stage2.csv",
@@ -77,7 +77,7 @@ def find_paths(args):
                     return raw, stage2, output_root
     detail = "\n".join(f"  Raw: {a}\n  Stage2: {b}" for a, b in tests[:14])
     raise FileNotFoundError(
-        "未找到 Stage 3 需要的两份文件。请核对 model_ready_data.csv 和 "
+        "未找到 Stage 3 需要的两份文件。请核对 model_ready_data.csv.gz 和 "
         "Stage2_Output/kinetic_parameters_stage2.csv 是否都已经放好。\n"
         "建议添加 --project-root /path/to/work。\n"
         f"已检查的部分位置：\n{detail}"
@@ -126,7 +126,7 @@ def main():
     kinetic_df = pd.read_csv(stage2_file)
     for c in ["Time", "torque", *PROCESS_COLS]:
         if c not in raw_df.columns:
-            raise ValueError(f"model_ready_data.csv 缺少必要字段 {c}")
+            raise ValueError(f"model_ready_data.csv.gz 缺少必要字段 {c}")
     for c in KINETIC_TARGETS:
         if c not in kinetic_df.columns:
             raise ValueError(f"Stage 2 参数表缺少必要字段 {c}")

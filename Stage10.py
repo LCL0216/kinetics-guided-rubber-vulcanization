@@ -2,7 +2,7 @@
 """Controlled n1 ablation using only modeling curves 1--88.
 
 Run with the existing scientific environment, for example:
-  python scripts/stage10_compare_kinetic_representations.py --project-root work
+  python Stage10.py --project-root .
 
 The restricted model fixes n1=1 and REFITS its rate constant from each
 training target curve. It is not obtained by replacing predicted n1 with 1.
@@ -20,7 +20,7 @@ from pathlib import Path
 import platform
 import sys
 
-os.environ.setdefault("MPLCONFIGDIR", str(Path(__file__).resolve().parents[1] / ".cache" / "matplotlib"))
+os.environ.setdefault("MPLCONFIGDIR", str(Path(__file__).resolve().parent / ".cache" / "matplotlib"))
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -97,7 +97,7 @@ def main():
     root = args.project_root.resolve()
     out = args.output_dir or root / "Stage10_n1_Ablation_Output"
     out.mkdir(parents=True, exist_ok=True)
-    sources = dict(raw=root / "model_ready_data.csv",
+    sources = dict(raw=root / "model_ready_data.csv.gz",
                    stage1=root / "Stage1_Output/kinetic_parameters_stage1.csv",
                    stage2=root / "Stage2_Output/kinetic_parameters_stage2.csv",
                    dataset=root / "Stage3_Output/pgmlp_curve_dataset.csv",
