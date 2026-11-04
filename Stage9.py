@@ -8,6 +8,7 @@ import json
 import platform
 from pathlib import Path
 from datetime import datetime, timezone
+from zipfile import ZipFile
 
 import joblib
 import numpy as np
@@ -111,6 +112,13 @@ def make_model(target):
 
 
 def fit_once(root, args, model_dir):
+    manifest_path = model_dir/'model_manifest.json'
+    archive_path = model_dir.parent / f'{model_dir.name}.zip'
+    if (manifest_path.exists() or archive_path.is_file()) and not args.overwrite_models:
+        raise FileExistsError('Original frozen models or their archive already exist. '
+                              'Use --mode predict for the paper results, or choose a different '
+                              '--model-dir for optional retraining. Replacing the model directory '
+                              'requires explicit --overwrite-models.')
     train_path = resolve_existing(args.train_stage3, [
         root/'Stage3_Output'/'pgmlp_curve_dataset.csv',
         root/'pgmlp_curve_dataset.csv',
@@ -125,11 +133,6 @@ def fit_once(root, args, model_dir):
         raise ValueError('alpha0 must be within [0,1]')
 
     model_dir.mkdir(parents=True, exist_ok=True)
-    manifest_path = model_dir/'model_manifest.json'
-    if manifest_path.exists() and not args.overwrite_models:
-        raise FileExistsError('Existing final models found. --mode fit must not overwrite them '
-                              'unless --overwrite-models is explicitly supplied. '
-                              'For validation, use --mode predict instead.')
 
     X = data[INPUTS].to_numpy(float)
     for target in TARGETS:
@@ -180,8 +183,33 @@ def curing_alpha(time, ti, k1, n1, alpha0):
     return np.clip(np.where(t < ti, pre, post), 0, 1)
 
 
+def restore_frozen_models(model_dir):
+    """Restore the supplied original models locally without fitting anything."""
+    archive_path = model_dir.parent / f'{model_dir.name}.zip'
+    if not archive_path.is_file():
+        return
+    required = {'ML_RF.joblib', 'MH_RF.joblib', 'ti_XGB.json',
+                'k1_XGB.json', 'n1_XGB.json', 'model_manifest.json'}
+    with ZipFile(archive_path) as bundle:
+        if set(bundle.namelist()) != required or len(bundle.namelist()) != len(required):
+            raise ValueError(f'Unexpected model archive contents: {archive_path}')
+        contents = {name: bundle.read(name) for name in required}
+    # Write only known basenames, and never replace a conflicting local file.
+    for name, raw in contents.items():
+        destination = model_dir / name
+        if destination.exists() and destination.read_bytes() != raw:
+            raise FileExistsError(f'{destination} differs from the original frozen model; '
+                                  'use a separate --model-dir')
+    model_dir.mkdir(parents=True, exist_ok=True)
+    for name in sorted(required - {'model_manifest.json'}) + ['model_manifest.json']:
+        (model_dir / name).write_bytes(contents[name])
+    print(f'Loaded original frozen model archive: {archive_path}')
+
+
 def load_models(model_dir):
     manifest_path = model_dir/'model_manifest.json'
+    if not manifest_path.is_file():
+        restore_frozen_models(model_dir)
     if not manifest_path.is_file():
         raise FileNotFoundError(f'Frozen models absent at {model_dir}. '
                                 'Run --mode fit ONCE (only if you lack saved 88-trained models), '
@@ -338,7 +366,6 @@ def predict_only(root, args, model_dir):
 
 
 from io import BytesIO
-from zipfile import ZipFile
 from matplotlib import gridspec, ticker
 from matplotlib.lines import Line2D
 from matplotlib.patches import FancyBboxPatch
