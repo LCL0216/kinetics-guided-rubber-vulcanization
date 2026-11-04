@@ -1,0 +1,301 @@
+{
+  "inputs": [
+    {
+      "source": "model_ready_data.csv",
+      "file": "data/training_curves.csv.gz",
+      "work_path": "model_ready_data.csv",
+      "sha256_uncompressed": "052723d2b3c6e4045c640a5cf56db2d7adc14d37b446c97eb12326fc257039d7",
+      "sha256_stored": "620df41d3ca17636a6b84ebdc4526e26894ed908330c0615d42390e74a73c354",
+      "rows": 217847,
+      "curves": 88,
+      "columns": [
+        "No",
+        "mixing_time",
+        "mixing_temp",
+        "curing_temp",
+        "curing_pressure",
+        "rotor_speed_1",
+        "rotor_speed_2",
+        "curing_time_offset",
+        "Time",
+        "torque"
+      ],
+      "set": "modeling 1-88"
+    },
+    {
+      "source": "Stage1_Output/kinetic_parameters_stage1.csv",
+      "file": "data/kinetic_characteristics.csv",
+      "work_path": "Stage1_Output/kinetic_parameters_stage1.csv",
+      "sha256_uncompressed": "64fff39b9bd795938c34b362908993e75227cd51bc4c533bb3aa7791160ce4b8",
+      "sha256_stored": "64fff39b9bd795938c34b362908993e75227cd51bc4c533bb3aa7791160ce4b8",
+      "rows": 88,
+      "curves": 88,
+      "columns": [
+        "No",
+        "success",
+        "failure_reason",
+        "ML",
+        "MH",
+        "ti",
+        "ti_raw",
+        "ti_sample",
+        "tp",
+        "curing_duration",
+        "alpha0",
+        "b",
+        "tm",
+        "max_rate",
+        "alpha_baseline",
+        "baseline_std",
+        "ti_warning",
+        "ti_clip_warning",
+        "b_warning",
+        "n_points"
+      ],
+      "set": "modeling 1-88"
+    },
+    {
+      "source": "Stage2_Output/kinetic_parameters_stage2.csv",
+      "file": "data/fitted_kinetic_parameters.csv",
+      "work_path": "Stage2_Output/kinetic_parameters_stage2.csv",
+      "sha256_uncompressed": "1c8709799e25083a90618c8e36ee7e5e7ead1f374e76192a3f2e9e39fdec5ea8",
+      "sha256_stored": "1c8709799e25083a90618c8e36ee7e5e7ead1f374e76192a3f2e9e39fdec5ea8",
+      "rows": 88,
+      "curves": 88,
+      "columns": [
+        "No",
+        "ML",
+        "MH",
+        "ti",
+        "tp",
+        "alpha0",
+        "b",
+        "k1",
+        "n1",
+        "R2",
+        "RMSE",
+        "n_points",
+        "k1_boundary_warning",
+        "n1_boundary_warning",
+        "success"
+      ],
+      "set": "modeling 1-88"
+    },
+    {
+      "source": "Stage3_Output/pgmlp_curve_dataset.csv",
+      "file": "data/training_curve_parameters.csv",
+      "work_path": "Stage3_Output/pgmlp_curve_dataset.csv",
+      "sha256_uncompressed": "18e11a81f1988b82c36b8808151515e71c55987791a1914a6fce0ceb5ce38e17",
+      "sha256_stored": "18e11a81f1988b82c36b8808151515e71c55987791a1914a6fce0ceb5ce38e17",
+      "rows": 88,
+      "curves": 88,
+      "columns": [
+        "No",
+        "mixing_time",
+        "mixing_temp",
+        "curing_temp",
+        "curing_pressure",
+        "rotor_speed_1",
+        "rotor_speed_2",
+        "curing_time_offset",
+        "ML",
+        "MH",
+        "ti",
+        "tp",
+        "alpha0",
+        "b",
+        "k1",
+        "n1",
+        "R2",
+        "RMSE",
+        "n_points",
+        "k1_boundary_warning",
+        "n1_boundary_warning",
+        "success",
+        "curve_group_id",
+        "group_size",
+        "is_duplicate_curve",
+        "curve_n_points"
+      ],
+      "set": "modeling 1-88"
+    },
+    {
+      "source": "independent_validation_process_6.csv",
+      "file": "data/validation_process.csv",
+      "work_path": "independent_validation_process_6.csv",
+      "sha256_uncompressed": "c7551a3e173447649d32d4bb130144a32e88d03d9a196a2c18100a031cf0af26",
+      "sha256_stored": "c7551a3e173447649d32d4bb130144a32e88d03d9a196a2c18100a031cf0af26",
+      "rows": 6,
+      "curves": 6,
+      "columns": [
+        "No",
+        "mixing_time",
+        "mixing_temp",
+        "curing_temp",
+        "curing_pressure",
+        "rotor_speed_1",
+        "rotor_speed_2",
+        "curing_time_offset"
+      ],
+      "set": "independent validation"
+    },
+    {
+      "source": "independent_validation_curves_6.csv",
+      "file": "data/validation_curves.csv",
+      "work_path": "independent_validation_curves_6.csv",
+      "sha256_uncompressed": "de930c7d97666f34e9a419c8c05a01af2146436fa9c94945abfefbdc998b82a0",
+      "sha256_stored": "de930c7d97666f34e9a419c8c05a01af2146436fa9c94945abfefbdc998b82a0",
+      "rows": 10628,
+      "curves": 6,
+      "columns": [
+        "No",
+        "Time",
+        "torque"
+      ],
+      "set": "independent validation"
+    }
+  ],
+  "frozen_models": [
+    {
+      "archive_member": "Stage9_一键预测/Stage9_Models_88/MH_RF.joblib",
+      "sha256": "c3f71ba4e32937c21774f057430f07d2a000dabcbb7392d750a1daa3bd2a96e6"
+    },
+    {
+      "archive_member": "Stage9_一键预测/Stage9_Models_88/ML_RF.joblib",
+      "sha256": "17d48657012e59f66ff05e7e8e79e7dfced26b86e1de7470b6a7e58271adb048"
+    },
+    {
+      "archive_member": "Stage9_一键预测/Stage9_Models_88/k1_XGB.json",
+      "sha256": "fd48d290d7a5209f5fef53658aa60e7e2e781e663143afbba825e2d2dfb4746c"
+    },
+    {
+      "archive_member": "Stage9_一键预测/Stage9_Models_88/model_manifest.json",
+      "sha256": "8bf6d4dee2686c0a4d1f92fedbbb47d4265d017a309d67302a9bca3dea13ee75"
+    },
+    {
+      "archive_member": "Stage9_一键预测/Stage9_Models_88/n1_XGB.json",
+      "sha256": "3fff22599f388b625595a7da7f9f427d6e63f7d5b43735c9695f33d394c9f945"
+    },
+    {
+      "archive_member": "Stage9_一键预测/Stage9_Models_88/ti_XGB.json",
+      "sha256": "34e41843dd58c41ab58756f36134dd248c727288391125c9b35cb0b4ef7865d6"
+    }
+  ],
+  "references": [
+    {
+      "source": "Stage4B_Output/model_comparison_summary.csv",
+      "file": "reference/Stage4B_Output/model_comparison_summary.csv",
+      "sha256": "2781ead90c01e9e6309ea0a5b43fb0c8e3081aa79ddc4be331d7135493fc29d7"
+    },
+    {
+      "source": "Stage4B_Output/best_model_per_target.csv",
+      "file": "reference/Stage4B_Output/best_model_per_target.csv",
+      "sha256": "678ca7a135221aa428071066f3739c857e30c74ef84b6d74d7fd07ff5abd2434"
+    },
+    {
+      "source": "Stage5_Output_alpha0_comparison/curve_metrics_summary.csv",
+      "file": "reference/Stage5_Output_alpha0_comparison/curve_metrics_summary.csv",
+      "sha256": "fc81c98e24b468061d7118182a0147d0d3a51f4588607e50441a66d2fd2e75a3"
+    },
+    {
+      "source": "Stage5_alpha0_Ablation/alpha0_ablation_summary.csv",
+      "file": "reference/Stage5_alpha0_Ablation/alpha0_ablation_summary.csv",
+      "sha256": "0c2a85a6fba599020cc83f8a88eccfdcc8ab039a331504fcaec996b4371cf9d4"
+    },
+    {
+      "source": "Stage5_alpha0_Ablation/alpha0_paired_summary.csv",
+      "file": "reference/Stage5_alpha0_Ablation/alpha0_paired_summary.csv",
+      "sha256": "df3708693f9056f0a055b9e19552b477e63affd1e0237203d847bd48451c7b4d"
+    },
+    {
+      "source": "Stage6_Output/MH_assisted_summary.csv",
+      "file": "reference/Stage6_Output/MH_assisted_summary.csv",
+      "sha256": "bf68041573476b40009192be765dabda89cecc51cca0a3942ef8117c302963a5"
+    },
+    {
+      "source": "Stage6_Output/MH_improvement.csv",
+      "file": "reference/Stage6_Output/MH_improvement.csv",
+      "sha256": "bc28122969590c321096551e1964cc03c5b9aae13e0e6a226e8160caf6079d5c"
+    },
+    {
+      "source": "Stage7A_Output/pearson_parameter_matrix.csv",
+      "file": "reference/Stage7A_Output/pearson_parameter_matrix.csv",
+      "sha256": "5a50ec8070b493edfbea051a94f9ec1617ebd807defea741986b586aab0ce81a"
+    },
+    {
+      "source": "Stage7A_Output/spearman_parameter_matrix.csv",
+      "file": "reference/Stage7A_Output/spearman_parameter_matrix.csv",
+      "sha256": "e38d704f1487a52502350230b3a140c1d778e0a3bbeaa46ded089b36fc2794fd"
+    },
+    {
+      "source": "Stage7A_Output/spearman_X_vs_parameters.csv",
+      "file": "reference/Stage7A_Output/spearman_X_vs_parameters.csv",
+      "sha256": "372f96620052cc53295b60745ba9179a88b4e258923ce351ce7f703504f5c093"
+    },
+    {
+      "source": "Stage7B_Output/ablation_summary.csv",
+      "file": "reference/Stage7B_Output/ablation_summary.csv",
+      "sha256": "7fdf2d64a0d842a3ee100042f3e1a2074254eb2b5edb7ea172dbc162f0e7b8ec"
+    },
+    {
+      "source": "Stage7B_Output/partial_spearman_parameter_matrix_control_curing_temp.csv",
+      "file": "reference/Stage7B_Output/partial_spearman_parameter_matrix_control_curing_temp.csv",
+      "sha256": "39cd2706482a2a11ebb6bf4a0c312e34b661b82c77ad7adaa9b200f0da1d4548"
+    },
+    {
+      "source": "Stage7C_Output/SHAP_importance_summary.csv",
+      "file": "reference/Stage7C_Output/SHAP_importance_summary.csv",
+      "sha256": "6d7a4752742ad5f87d41b9e15b9ca5223232cf43a57acb4bac0be8a3a964ebb7"
+    },
+    {
+      "source": "Stage7C_Output/permutation_importance_summary.csv",
+      "file": "reference/Stage7C_Output/permutation_importance_summary.csv",
+      "sha256": "22b60c97e553707f283394fc4d64e0de87ed03afe9e827e88813d1e606d238b8"
+    },
+    {
+      "source": "Stage8_Output/fold_membership.csv",
+      "file": "reference/Stage8_Output/fold_membership.csv",
+      "sha256": "1d85109bf0710e63ac0eb41bacbaf401865f89df918c16c9256af14d1a1f156a"
+    },
+    {
+      "source": "Stage8_Output/curve_metrics_all_methods.csv",
+      "file": "reference/Stage8_Output/curve_metrics_all_methods.csv",
+      "sha256": "17bdffb76b2771d04fe35718967ed835b92faf7c1cbc1fee97cf6cbd37ac329a"
+    },
+    {
+      "source": "Stage8_Output/method_summary.csv",
+      "file": "reference/Stage8_Output/method_summary.csv",
+      "sha256": "aeb1c8d4bc0fdfc35e1e95fd5cbba471e98524a56a3d72295865404fb017425b"
+    },
+    {
+      "source": "Stage10_n1_Ablation_Output/summary.csv",
+      "file": "reference/Stage10_n1_Ablation_Output/summary.csv",
+      "sha256": "3b2cfe7b6358749b5bf8d8214ab25cb2952803e850cebf74456ab961becb11e8"
+    },
+    {
+      "source": "Stage10_n1_Ablation_Output/paired_comparisons.csv",
+      "file": "reference/Stage10_n1_Ablation_Output/paired_comparisons.csv",
+      "sha256": "c86b94f790fb3be871008a534272a7221b7ac6fdd954b8aae4947f307f822529"
+    },
+    {
+      "source": "Stage9_一键预测/Stage9_Output/stage9_summary.csv",
+      "file": "reference/Stage9_一键预测/Stage9_Output/stage9_summary.csv",
+      "sha256": "ee43cd265598eb1c0907bb70ec35ccb4b379241f13c27ff6294f367414be63d8"
+    },
+    {
+      "source": "Stage9_一键预测/Stage9_Output/stage9_curve_metrics.csv",
+      "file": "reference/Stage9_一键预测/Stage9_Output/stage9_curve_metrics.csv",
+      "sha256": "05f5951eb781e16373537eb8aa28ebfd21bd80d055ceff6394e360d76bfc615a"
+    },
+    {
+      "source": "Stage9_一键预测/Stage9_Output/stage9_predicted_parameters.csv",
+      "file": "reference/Stage9_一键预测/Stage9_Output/stage9_predicted_parameters.csv",
+      "sha256": "126fc1879ef7555f74e4d39f5c98e490d37d4d442e76e7ed45d489b6cecbdebf"
+    },
+    {
+      "source": "Stage9_一键预测/Stage9_Output/stage9_pointwise_predictions.csv",
+      "file": "reference/Stage9_一键预测/Stage9_Output/stage9_pointwise_predictions.csv",
+      "sha256": "3a78a44df39d485627e0f29e815214bd2de018534add165c6bf1b456bd7fc8c6"
+    }
+  ]
+}
