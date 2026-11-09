@@ -1,6 +1,6 @@
-# Kinetics-Guided Prediction of Rubber Vulcanization Curves
+# Kinetics-Guided Machine Learning for Polymer Vulcanization
 
-Core code and data for *Kinetics-Guided Machine Learning for Interpretable Prediction of Rubber Vulcanization Curves*.
+Core code, experimental curve data, and original frozen models for *Kinetics-Guided Machine Learning for Interpretable Prediction of Polymer Vulcanization*.
 
 ## Data and frozen models
 
